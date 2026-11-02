@@ -1,0 +1,155 @@
+{
+  "model": "C:\\Users\\user\\SOARM101_RedBox\\models\\yolo\\graybasket_v1\\weights\\best.pt",
+  "conf": 0.25,
+  "iou_match": 0.5,
+  "images": [
+    {
+      "image": "set11_belly.jpg",
+      "camera": "belly",
+      "truth": 1,
+      "matched_iou": [
+        0.535
+      ],
+      "missed": [],
+      "extra": [
+        [
+          "gray_basket",
+          0.308
+        ]
+      ]
+    },
+    {
+      "image": "set11_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.897,
+        0.851
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set11_wrist.jpg",
+      "camera": "wrist",
+      "truth": 2,
+      "matched_iou": [
+        0.843,
+        0.764
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set12_belly.jpg",
+      "camera": "belly",
+      "truth": 1,
+      "matched_iou": [
+        0.853
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set12_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.849,
+        0.779
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set12_wrist.jpg",
+      "camera": "wrist",
+      "truth": 1,
+      "matched_iou": [
+        0.818
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set13_belly.jpg",
+      "camera": "belly",
+      "truth": 2,
+      "matched_iou": [
+        0.736
+      ],
+      "missed": [
+        "red_box"
+      ],
+      "extra": [
+        [
+          "red_box",
+          0.388
+        ],
+        [
+          "red_box",
+          0.366
+        ],
+        [
+          "red_box",
+          0.336
+        ],
+        [
+          "red_box",
+          0.329
+        ],
+        [
+          "red_box",
+          0.271
+        ]
+      ]
+    },
+    {
+      "image": "set13_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.837
+      ],
+      "missed": [
+        "red_box"
+      ],
+      "extra": [
+        [
+          "red_box",
+          0.334
+        ],
+        [
+          "red_box",
+          0.269
+        ]
+      ]
+    },
+    {
+      "image": "set13_wrist.jpg",
+      "camera": "wrist",
+      "truth": 2,
+      "matched_iou": [],
+      "missed": [
+        "red_box",
+        "gray_basket"
+      ],
+      "extra": [
+        [
+          "gray_basket",
+          0.72
+        ]
+      ]
+    }
+  ],
+  "totals": {
+    "truth": 15,
+    "matched": 11,
+    "missed_red": 3,
+    "missed_basket": 1,
+    "false_red": 7,
+    "false_basket": 2
+  },
+  "map50": 0.7688589561428436,
+  "map50_95": 0.5096887970548567
+}

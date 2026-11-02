@@ -1,0 +1,187 @@
+{
+  "model": "C:\\Users\\user\\SOARM101_RedBox\\models\\yolo\\graybasket_v2\\weights\\best.pt",
+  "conf": 0.25,
+  "iou_match": 0.5,
+  "images": [
+    {
+      "image": "set11_belly.jpg",
+      "camera": "belly",
+      "truth": 1,
+      "matched_iou": [
+        0.514
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set11_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.902,
+        0.88
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set11_wrist.jpg",
+      "camera": "wrist",
+      "truth": 2,
+      "matched_iou": [
+        0.76
+      ],
+      "missed": [
+        "gray_basket"
+      ],
+      "extra": []
+    },
+    {
+      "image": "set12_belly.jpg",
+      "camera": "belly",
+      "truth": 1,
+      "matched_iou": [
+        0.814
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set12_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.902,
+        0.659
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set12_wrist.jpg",
+      "camera": "wrist",
+      "truth": 1,
+      "matched_iou": [
+        0.866
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set13_belly.jpg",
+      "camera": "belly",
+      "truth": 2,
+      "matched_iou": [
+        0.953,
+        0.557
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set13_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.753
+      ],
+      "missed": [
+        "red_box"
+      ],
+      "extra": [
+        [
+          "red_box",
+          0.729
+        ]
+      ]
+    },
+    {
+      "image": "set13_wrist.jpg",
+      "camera": "wrist",
+      "truth": 2,
+      "matched_iou": [
+        0.896
+      ],
+      "missed": [
+        "gray_basket"
+      ],
+      "extra": []
+    },
+    {
+      "image": "set19_belly.jpg",
+      "camera": "belly",
+      "truth": 2,
+      "matched_iou": [
+        0.968,
+        0.856
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set19_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.956,
+        0.739
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set19_wrist.jpg",
+      "camera": "wrist",
+      "truth": 2,
+      "matched_iou": [
+        0.924,
+        0.717
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set20_belly.jpg",
+      "camera": "belly",
+      "truth": 2,
+      "matched_iou": [
+        0.899,
+        0.741
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set20_top.jpg",
+      "camera": "top",
+      "truth": 2,
+      "matched_iou": [
+        0.946,
+        0.697
+      ],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "image": "set20_wrist.jpg",
+      "camera": "wrist",
+      "truth": 2,
+      "matched_iou": [
+        0.884,
+        0.85
+      ],
+      "missed": [],
+      "extra": []
+    }
+  ],
+  "totals": {
+    "truth": 27,
+    "matched": 24,
+    "missed_red": 1,
+    "missed_basket": 2,
+    "false_red": 1,
+    "false_basket": 0
+  },
+  "map50": 0.927209677419355,
+  "map50_95": 0.6268102676751256
+}

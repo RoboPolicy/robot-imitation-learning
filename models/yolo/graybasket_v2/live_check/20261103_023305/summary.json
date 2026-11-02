@@ -1,0 +1,28 @@
+{
+  "model": "C:\\Users\\user\\SOARM101_RedBox\\models\\yolo\\graybasket_v2\\weights\\best.pt",
+  "conf": 0.25,
+  "cameras": {
+    "top": {
+      "frames": 6467,
+      "red": 4931,
+      "basket": 6467,
+      "many_red": 86,
+      "many_basket": 31
+    },
+    "wrist": {
+      "frames": 6467,
+      "red": 4168,
+      "basket": 3502,
+      "many_red": 155,
+      "many_basket": 908
+    },
+    "belly": {
+      "frames": 6467,
+      "red": 3466,
+      "basket": 6296,
+      "many_red": 117,
+      "many_basket": 98
+    }
+  },
+  "mean_inference_ms_for_3_images": 14.0
+}
