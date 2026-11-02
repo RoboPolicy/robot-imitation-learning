@@ -1,0 +1,48 @@
+{
+  "reason": "completed",
+  "speed": 1.0,
+  "planned_seconds": 7.93,
+  "seconds": 7.94,
+  "commands": 477,
+  "over_budget_loops": 0,
+  "comm_misses": 0,
+  "lag": {
+    "shoulder_pan": {
+      "median": 0.7,
+      "p95": 5.49,
+      "max": 9.92
+    },
+    "shoulder_lift": {
+      "median": 4.02,
+      "p95": 17.02,
+      "max": 22.45
+    },
+    "elbow_flex": {
+      "median": 1.17,
+      "p95": 17.23,
+      "max": 24.66
+    },
+    "wrist_flex": {
+      "median": 1.79,
+      "p95": 5.38,
+      "max": 8.94
+    },
+    "wrist_roll": {
+      "median": 0.22,
+      "p95": 2.55,
+      "max": 4.98
+    },
+    "gripper": {
+      "median": 8.22,
+      "p95": 22.88,
+      "max": 29.41
+    }
+  },
+  "time": "2026-11-03T04:52:23",
+  "episode": 25,
+  "yolo_top": {
+    "red_conf": 0.8,
+    "basket_conf": 0.92,
+    "inside": true
+  }
+}

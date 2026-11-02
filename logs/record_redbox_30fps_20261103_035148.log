@@ -1,0 +1,11 @@
+[READY] 토크 꺼짐. 상자와 팔을 준비한 뒤 Enter를 누르세요. 시간 제한은 없습니다.
+[PREFLIGHT] shoulder_pan 차이 7.4. 토크는 켜지 않았습니다.
+  shoulder_pan   leader=    0.61 follower=    7.96
+  shoulder_lift  leader=  -94.91 follower=  -88.75
+  elbow_flex     leader=  100.00 follower=   94.84
+  wrist_flex     leader=  -95.91 follower=  -93.13
+  wrist_roll     leader=    0.07 follower=   -4.22
+  gripper        leader=    6.60 follower=    6.65
+[EXIT REASON] 정상 종료: preflight
+[LOG] C:\Users\user\SOARM101_RedBox\logs\record_redbox_30fps_20261103_035148.log
+[END] 저장된 에피소드 3/50개: C:\Users\user\SOARM101_RedBox\datasets\lerobot\redbox_30fps
