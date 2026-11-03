@@ -1,0 +1,97 @@
+[READY] 토크 꺼짐. 상자와 팔을 준비한 뒤 Enter를 누르세요. 시간 제한은 없습니다.
+[POSITION] episode_0000, 빨간 상자 위치 x450 y105 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/304 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 304/304 [00:00<00:00, 5475.33 examples/s]
+[RESULT] saved: 304프레임, 10.11초, 29.97 FPS, 최대 간격 74.9ms, 지연 샘플 0
+[SAVED] episode_0000 저장 확인 (1/10)
+[POSITION] episode_0001, 빨간 상자 위치 x430 y105 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0001 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/278 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 278/278 [00:00<00:00, 5781.95 examples/s]
+[RESULT] saved: 278프레임, 9.24초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0001 저장 확인 (2/10)
+[POSITION] episode_0002, 빨간 상자 위치 x470 y105 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0002 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                               | 0/65 [00:00<?, ? examples/s]Map: 100%|████████████████████████████████████████████████████████████████████| 65/65 [00:00<00:00, 4481.83 examples/s]
+[RESULT] saved: 65프레임, 2.13초, 30.0 FPS, 최대 간격 33.6ms, 지연 샘플 0
+[SAVED] episode_0002 저장 확인 (3/10)
+[POSITION] episode_0003, 빨간 상자 위치 x450 y90 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0003 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0003의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 243프레임, 8.07초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[REC] episode_0003 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/270 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 270/270 [00:00<00:00, 5447.31 examples/s]
+[RESULT] saved: 270프레임, 8.97초, 29.98 FPS, 최대 간격 34.2ms, 지연 샘플 0
+[SAVED] episode_0003 저장 확인 (3/10)
+[POSITION] episode_0002, 빨간 상자 위치 x470 y105 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0002 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/225 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 225/225 [00:00<00:00, 5624.97 examples/s]
+[RESULT] saved: 225프레임, 7.47초, 29.99 FPS, 최대 간격 34.1ms, 지연 샘플 0
+[SAVED] episode_0002 저장 확인 (4/10)
+[POSITION] episode_0004, 빨간 상자 위치 x450 y120 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0004 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/269 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 269/269 [00:00<00:00, 5716.74 examples/s]
+[RESULT] saved: 269프레임, 8.94초, 29.99 FPS, 최대 간격 33.6ms, 지연 샘플 0
+[SAVED] episode_0004 저장 확인 (5/10)
+[POSITION] episode_0005, 빨간 상자 위치 x430 y90 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0005 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/267 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 267/267 [00:00<00:00, 6208.72 examples/s]
+[RESULT] saved: 267프레임, 8.87초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0005 저장 확인 (6/10)
+[POSITION] episode_0006, 빨간 상자 위치 x470 y120 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0006 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/251 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 251/251 [00:00<00:00, 5699.40 examples/s]
+[RESULT] saved: 251프레임, 8.33초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0006 저장 확인 (7/10)
+[POSITION] episode_0007, 빨간 상자 위치 x430 y120 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0007 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/257 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 257/257 [00:00<00:00, 5459.67 examples/s]
+[RESULT] saved: 257프레임, 8.54초, 29.98 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[SAVED] episode_0007 저장 확인 (8/10)
+[POSITION] episode_0008, 빨간 상자 위치 x470 y90 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0008 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/235 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 235/235 [00:00<00:00, 5874.20 examples/s]
+[RESULT] saved: 235프레임, 7.8초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[SAVED] episode_0008 저장 확인 (9/10)
+[POSITION] episode_0009, 빨간 상자 위치 x450 y105 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0009 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/236 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 236/236 [00:00<00:00, 5422.03 examples/s]
+[RESULT] saved: 236프레임, 7.84초, 29.98 FPS, 최대 간격 34.4ms, 지연 샘플 0
+[SAVED] episode_0009 저장 확인 (10/10)
+[DONE] 목표를 모두 저장했습니다. 리더를 맞춘 뒤 Esc로 종료하세요.
+[DONE] 목표를 모두 저장했습니다. 리더를 맞춘 뒤 Esc로 종료하세요.
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[DONE] 목표를 모두 저장했습니다. 리더를 맞춘 뒤 Esc로 종료하세요.
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[EXIT REASON] 오류로 종료했습니다. 토크가 꺼지니 팔을 받쳐 주세요.
+Traceback (most recent call last):
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 882, in main
+    result = run_session(cfg, follower, leader, keys, status)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 634, in run_session
+    time.sleep(0.1)
+KeyboardInterrupt
+[LOG] C:\Users\user\SOARM101_RedBox\logs\record_redbox_redtop_30fps_20261103_170105.log
+[END] 저장된 에피소드 10/10개: C:\Users\user\SOARM101_RedBox\datasets\lerobot\redbox_redtop_30fps
+Traceback (most recent call last):
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 898, in <module>
+    main()
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 882, in main
+    result = run_session(cfg, follower, leader, keys, status)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 634, in run_session
+    time.sleep(0.1)
+KeyboardInterrupt
