@@ -1,0 +1,37 @@
+time,condition,trial,layout,outcome,reason,seconds,speed,replan,checkpoint,trial_file
+2026-11-03T15:51:02,red_only,1,TOP=red,success,operator_done,12.59,0.5,2,redbox_pool_v2_100000_quick5,trial_155102_50pct
+2026-11-03T15:51:28,red_only,2,MID=red,fail,operator_done,18.62,0.5,2,redbox_pool_v2_100000_quick5,trial_155128_50pct
+2026-11-03T15:51:52,red_only,3,BOT=red,discard,operator_done,13.09,0.5,2,redbox_pool_v2_100000_quick5,trial_155152_50pct
+2026-11-03T15:52:15,red_only,3,BOT=red,success,operator_done,12.59,0.5,2,redbox_pool_v2_100000_quick5,trial_155215_50pct
+2026-11-03T15:52:42,red_only,4,TOP=red,success,operator_done,18.07,0.5,2,redbox_pool_v2_100000_quick5,trial_155242_50pct
+2026-11-03T15:53:05,red_only,5,MID=red,success,operator_done,12.47,0.5,2,redbox_pool_v2_100000_quick5,trial_155305_50pct
+2026-11-03T15:53:53,red-black-blue,1,TOP=red MID=black BOT=blue,success,operator_done,16.29,0.5,2,redbox_pool_v2_100000_quick5,trial_155353_50pct
+2026-11-03T15:54:15,red-black-blue,2,TOP=red MID=black BOT=blue,success,operator_done,12.89,0.5,2,redbox_pool_v2_100000_quick5,trial_155415_50pct
+2026-11-03T15:54:35,red-black-blue,3,TOP=red MID=black BOT=blue,success,operator_done,12.24,0.5,2,redbox_pool_v2_100000_quick5,trial_155435_50pct
+2026-11-03T15:54:58,red-black-blue,4,TOP=red MID=black BOT=blue,success,operator_done,13.2,0.5,2,redbox_pool_v2_100000_quick5,trial_155458_50pct
+2026-11-03T15:55:19,red-black-blue,5,TOP=red MID=black BOT=blue,success,operator_done,12.73,0.5,2,redbox_pool_v2_100000_quick5,trial_155519_50pct
+2026-11-03T15:55:47,red-blue-black,1,TOP=red MID=blue BOT=black,success,operator_done,12.04,0.5,2,redbox_pool_v2_100000_quick5,trial_155547_50pct
+2026-11-03T15:56:07,red-blue-black,2,TOP=red MID=blue BOT=black,success,operator_done,12.32,0.5,2,redbox_pool_v2_100000_quick5,trial_155607_50pct
+2026-11-03T15:56:52,red-blue-black,3,TOP=red MID=blue BOT=black,success,operator_done,17.35,0.5,2,redbox_pool_v2_100000_quick5,trial_155652_50pct
+2026-11-03T15:57:15,red-blue-black,4,TOP=red MID=blue BOT=black,success,operator_done,14.32,0.5,2,redbox_pool_v2_100000_quick5,trial_155715_50pct
+2026-11-03T15:57:47,red-blue-black,5,TOP=red MID=blue BOT=black,success,operator_done,12.62,0.5,2,redbox_pool_v2_100000_quick5,trial_155747_50pct
+2026-11-03T15:58:17,black-red-blue,1,TOP=black MID=red BOT=blue,success,operator_done,12.1,0.5,2,redbox_pool_v2_100000_quick5,trial_155817_50pct
+2026-11-03T15:58:37,black-red-blue,2,TOP=black MID=red BOT=blue,success,operator_done,12.64,0.5,2,redbox_pool_v2_100000_quick5,trial_155837_50pct
+2026-11-03T15:58:58,black-red-blue,3,TOP=black MID=red BOT=blue,success,operator_done,12.49,0.5,2,redbox_pool_v2_100000_quick5,trial_155858_50pct
+2026-11-03T15:59:19,black-red-blue,4,TOP=black MID=red BOT=blue,success,operator_done,12.44,0.5,2,redbox_pool_v2_100000_quick5,trial_155919_50pct
+2026-11-03T15:59:42,black-red-blue,5,TOP=black MID=red BOT=blue,success,operator_done,12.59,0.5,2,redbox_pool_v2_100000_quick5,trial_155942_50pct
+2026-11-03T16:00:07,black-blue-red,1,TOP=black MID=blue BOT=red,success,operator_done,12.32,0.5,2,redbox_pool_v2_100000_quick5,trial_160007_50pct
+2026-11-03T16:00:27,black-blue-red,2,TOP=black MID=blue BOT=red,success,operator_done,12.49,0.5,2,redbox_pool_v2_100000_quick5,trial_160027_50pct
+2026-11-03T16:00:46,black-blue-red,3,TOP=black MID=blue BOT=red,success,operator_done,12.65,0.5,2,redbox_pool_v2_100000_quick5,trial_160046_50pct
+2026-11-03T16:01:05,black-blue-red,4,TOP=black MID=blue BOT=red,success,operator_done,12.3,0.5,2,redbox_pool_v2_100000_quick5,trial_160105_50pct
+2026-11-03T16:01:26,black-blue-red,5,TOP=black MID=blue BOT=red,success,operator_done,12.47,0.5,2,redbox_pool_v2_100000_quick5,trial_160126_50pct
+2026-11-03T16:01:52,blue-red-black,1,TOP=blue MID=red BOT=black,success,operator_done,12.09,0.5,2,redbox_pool_v2_100000_quick5,trial_160152_50pct
+2026-11-03T16:02:11,blue-red-black,2,TOP=blue MID=red BOT=black,success,operator_done,12.37,0.5,2,redbox_pool_v2_100000_quick5,trial_160211_50pct
+2026-11-03T16:02:31,blue-red-black,3,TOP=blue MID=red BOT=black,success,operator_done,12.25,0.5,2,redbox_pool_v2_100000_quick5,trial_160231_50pct
+2026-11-03T16:02:54,blue-red-black,4,TOP=blue MID=red BOT=black,success,operator_done,12.17,0.5,2,redbox_pool_v2_100000_quick5,trial_160254_50pct
+2026-11-03T16:03:16,blue-red-black,5,TOP=blue MID=red BOT=black,success,operator_done,12.4,0.5,2,redbox_pool_v2_100000_quick5,trial_160316_50pct
+2026-11-03T16:03:43,blue-black-red,1,TOP=blue MID=black BOT=red,success,operator_done,12.65,0.5,2,redbox_pool_v2_100000_quick5,trial_160343_50pct
+2026-11-03T16:04:01,blue-black-red,2,TOP=blue MID=black BOT=red,success,operator_done,11.44,0.5,2,redbox_pool_v2_100000_quick5,trial_160401_50pct
+2026-11-03T16:04:24,blue-black-red,3,TOP=blue MID=black BOT=red,success,operator_done,12.27,0.5,2,redbox_pool_v2_100000_quick5,trial_160424_50pct
+2026-11-03T16:04:45,blue-black-red,4,TOP=blue MID=black BOT=red,success,operator_done,12.47,0.5,2,redbox_pool_v2_100000_quick5,trial_160445_50pct
+2026-11-03T16:05:05,blue-black-red,5,TOP=blue MID=black BOT=red,success,operator_done,12.25,0.5,2,redbox_pool_v2_100000_quick5,trial_160505_50pct
