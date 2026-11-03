@@ -231,8 +231,9 @@ def view_mismatches(live, shape):
 class Protocol:
     """조건별 반복 평가의 진행과 결과를 CSV에 남깁니다. 다시 실행하면 이어서 진행합니다."""
 
-    def __init__(self, path, per_condition=PROTOCOL_TRIALS):
+    def __init__(self, path, per_condition=PROTOCOL_TRIALS, only=None):
         self.path, self.per_condition = Path(path), per_condition
+        self.conditions = [c for c in PROTOCOL_CONDITIONS if not only or c[0] in only]
         self.rows = []
         if self.path.exists():
             with self.path.open(encoding="utf-8", newline="") as f:
@@ -243,7 +244,7 @@ class Protocol:
 
     def current(self):
         """다음 시도의 조건, 번호, 배치를 돌려줍니다. 모두 끝났으면 None입니다."""
-        for name, layout in PROTOCOL_CONDITIONS:
+        for name, layout in self.conditions:
             done = self.done(name)
             if done < self.per_condition:
                 # 빨간 상자만 있을 때는 세 자리를 돌아가며 놓습니다.
@@ -270,7 +271,7 @@ class Protocol:
 
     def totals(self):
         parts = []
-        for name, _ in PROTOCOL_CONDITIONS:
+        for name, _ in self.conditions:
             done = self.done(name)
             wins = sum(r["condition"] == name and r["outcome"] == "success" for r in self.rows)
             parts.append(f"{name} {wins}/{done}")
@@ -433,7 +434,7 @@ def run_session(cfg, follower, keys, status, model=None):
     print("[MOVE] 시작 자세로 천천히 이동합니다.", flush=True)
     status.state = "MOVE"
     at_start = move_to(follower, start, keys, status, "MOVE to start")
-    speed_index = DEFAULT_SPEED
+    speed_index = cfg.get("speed_index", DEFAULT_SPEED)
     results = []
     finish_until = 0.0
     esc_ignore = 0.0
@@ -608,6 +609,11 @@ def self_test():
         assert len(again.current()["layout"]) == 3
         assert again.guide(again.current())[0][2] == "V"
         assert "red_only 1/2" in again.totals()
+        picked = Protocol(path, per_condition=2, only=[PROTOCOL_CONDITIONS[4][0]])
+        assert picked.current()["condition"] == PROTOCOL_CONDITIONS[4][0] and "red_only" not in picked.totals()
+        speedy, follower, _ = session(tmp, steady, ("PLACE", 0.1, "enter"), *one_trial, ("VERDICT", 0.1, "no"), *finish,
+                                      protocol=Protocol(Path(tmp) / "speed.csv", per_condition=1), speed_index=2)
+        assert speedy[0]["speed"] == 1.0, speedy
     grid = red_only_guide()
     assert len(grid) == 30 and len(set(grid)) == 30
 
@@ -631,11 +637,17 @@ def main():
     parser.add_argument("--run", default="redbox_rgb_v1")
     parser.add_argument("--checkpoint", default=None, help="예: 060000. 없으면 저장이 끝난 가장 최근 체크포인트")
     parser.add_argument("--dataset", nargs="+", default=["redbox_30fps"], help="안전 한계와 시작 자세를 잴 시연 (여러 개 가능)")
-    parser.add_argument("--replan", type=int, default=10, help="몇 스텝마다 새로 예측할지 (1~10). 1 스텝은 100% 속도에서 0.2초")
+    parser.add_argument("--replan", type=int, default=10, help="몇 스텝마다 새로 예측할지 (1~10). 1 스텝은 100%% 속도에서 0.2초")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--no-wrist", action="store_true", help="손목 영상 대신 평균 화면을 넣는 임시 시험입니다. 잡기 성능은 믿을 수 없습니다.")
     parser.add_argument("--dry-run", type=float, default=0.0, help="지정한 초 동안 추론만 합니다. 토크를 켜지 않습니다.")
     parser.add_argument("--protocol", action="store_true", help="빨간 상자만 + 3개 배치 6가지를 조건별 20회 평가합니다.")
+    parser.add_argument("--trials", type=int, default=PROTOCOL_TRIALS, help="--protocol의 조건별 시도 수")
+    parser.add_argument("--tag", default="", help="결과 폴더 이름 끝에 붙입니다. 설정을 바꾼 평가를 따로 모을 때 씁니다.")
+    parser.add_argument("--conditions", nargs="+", choices=[name for name, _ in PROTOCOL_CONDITIONS], default=None,
+                        help="--protocol에서 이 조건만 평가합니다.")
+    parser.add_argument("--speed", type=int, choices=[round(s * 100) for s in SPEEDS], default=None,
+                        help="시작 속도(%%). --protocol에서는 이 속도로 고정됩니다. 기본 50")
     parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
     if args.self_test:
@@ -651,7 +663,7 @@ def main():
     limits = demo_limits(args.dataset)
     print(f"[CHECKPOINT] {checkpoint}", flush=True)
     print(f"[LIMITS] 시작 자세 {np.round(limits['start'], 1).tolist()}", flush=True)
-    suffix = "_nowrist" if args.no_wrist else ""
+    suffix = ("_nowrist" if args.no_wrist else "") + (f"_{args.tag}" if args.tag else "")
     predict = ActPredictor(checkpoint, args.device, {"wrist_cam": mean_image("wrist_cam")} if args.no_wrist else None)
     model = YOLO(str(MODEL))
     if args.no_wrist:
@@ -676,8 +688,10 @@ def main():
         preview.start()
         cfg = {"limits": limits, "planner": planner, "replan": args.replan, "name": f"{args.run}_{checkpoint.name}{suffix}",
                "log_dir": LOG_DIR / "eval" / f"{args.run}_{checkpoint.name}{suffix}", "camera": follower.cameras["top_cam"]}
+        if args.speed:
+            cfg["speed_index"] = [round(s * 100) for s in SPEEDS].index(args.speed)
         if args.protocol:
-            cfg["protocol"] = Protocol(cfg["log_dir"] / "protocol_results.csv")
+            cfg["protocol"] = Protocol(cfg["log_dir"] / "protocol_results.csv", per_condition=args.trials, only=args.conditions)
             print(f"[PROTOCOL] 지금까지: {cfg['protocol'].totals()}", flush=True)
         run_session(cfg, follower, keys, status, model)
     finally:
