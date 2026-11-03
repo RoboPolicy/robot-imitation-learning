@@ -52,11 +52,12 @@ PROTOCOL_TRIALS = 20
 PROTOCOL_FIELDS = ["time", "condition", "trial", "layout", "outcome", "reason", "seconds", "speed", "replan", "checkpoint", "trial_file"]
 
 
-def demo_limits(dataset):
-    """시연에서 시작 자세, 관절 범위, 최대 속도, 최대 지연을 잽니다."""
-    folders = sorted((DATASET_ROOT / dataset).glob("episode_*"))
+def demo_limits(datasets):
+    """시연에서 시작 자세, 관절 범위, 최대 속도, 최대 지연을 잽니다. 여러 시연 묶음을 합쳐서 잴 수 있습니다."""
+    datasets = [datasets] if isinstance(datasets, str) else datasets
+    folders = [f for dataset in datasets for f in sorted((DATASET_ROOT / dataset).glob("episode_*"))]
     if not folders:
-        raise RuntimeError(f"시연이 없습니다: {dataset}")
+        raise RuntimeError(f"시연이 없습니다: {datasets}")
     names = json.loads((folders[0] / "meta" / "info.json").read_text(encoding="utf-8"))["features"]["action"]["names"]
     if list(names) != [f"{j}.pos" for j in JOINTS]:
         raise RuntimeError(f"관절 순서가 다릅니다: {names}")
@@ -629,7 +630,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", default="redbox_rgb_v1")
     parser.add_argument("--checkpoint", default=None, help="예: 060000. 없으면 저장이 끝난 가장 최근 체크포인트")
-    parser.add_argument("--dataset", default="redbox_30fps", help="안전 한계와 시작 자세를 잴 시연")
+    parser.add_argument("--dataset", nargs="+", default=["redbox_30fps"], help="안전 한계와 시작 자세를 잴 시연 (여러 개 가능)")
     parser.add_argument("--replan", type=int, default=10, help="몇 스텝마다 새로 예측할지 (1~10). 1 스텝은 100% 속도에서 0.2초")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--no-wrist", action="store_true", help="손목 영상 대신 평균 화면을 넣는 임시 시험입니다. 잡기 성능은 믿을 수 없습니다.")

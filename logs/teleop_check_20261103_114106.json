@@ -1,0 +1,44 @@
+{
+  "time": "2026-11-03T11:41:48",
+  "seconds": 27.2,
+  "control_hz": 60.0,
+  "over_budget_loops": 0,
+  "joints": {
+    "shoulder_pan": {
+      "moved_range": 196.9,
+      "lag_median": 1.08,
+      "lag_p95": 12.32,
+      "lag_max": 17.98
+    },
+    "shoulder_lift": {
+      "moved_range": 193.2,
+      "lag_median": 1.21,
+      "lag_p95": 9.19,
+      "lag_max": 22.81
+    },
+    "elbow_flex": {
+      "moved_range": 193.7,
+      "lag_median": 4.13,
+      "lag_p95": 19.71,
+      "lag_max": 43.16
+    },
+    "wrist_flex": {
+      "moved_range": 192.6,
+      "lag_median": 1.18,
+      "lag_p95": 14.43,
+      "lag_max": 60.15
+    },
+    "wrist_roll": {
+      "moved_range": 184.5,
+      "lag_median": 0.29,
+      "lag_p95": 10.05,
+      "lag_max": 21.88
+    },
+    "gripper": {
+      "moved_range": 0.4,
+      "lag_median": 0.19,
+      "lag_p95": 0.43,
+      "lag_max": 0.71
+    }
+  }
+}

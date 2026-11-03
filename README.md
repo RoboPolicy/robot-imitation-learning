@@ -76,7 +76,7 @@ cd "$env:USERPROFILE\SOARM101_RedBox"
 
 ## 카메라, 재생, 분할
 
-- `start_align_camera.bat`: top 카메라를 기준 에피소드 화면에 맞춥니다. `start_align_belly.bat`은 belly 카메라용입니다. 기준값은 `config/*_camera_reference.*`에 있습니다. 평가 전에 다시 확인합니다.
+- `start_align_camera.bat`: top 카메라를 기준 에피소드 화면에 맞춥니다. `start_align_belly.bat`은 belly 카메라용이고, `start_align_wrist.bat`은 닫은 그리퍼의 보라색 범위로 손목 카메라를 맞춥니다(허용 15px). 기준값은 `config/*_camera_reference.*`에 있습니다. 평가 전에 다시 확인합니다.
 - `start_teleop_check.bat`: 기록 없이 리더와 팔로워 조종을 확인합니다.
 - `start_replay.bat`: 저장된 시연을 25%, 50%, 100% 속도로 재생합니다. 결과는 `logs/replay/`에 남습니다.
 - `scripts/split_episodes.py`: 30 FPS 시연을 5 FPS 6개로 나눕니다. 분할본 300개의 독립 시연 수는 50개입니다.
@@ -100,7 +100,7 @@ cd "$env:USERPROFILE\SOARM101_RedBox"
 2. `scripts/split_episodes.py --source redbox_redonly_30fps --output redbox_redonly_5fps_split6`: 6개로 나눕니다.
 3. `scripts/merge_datasets.py`: 기존 분할본과 합쳐 `redbox_pool_v2`를 만듭니다.
 4. `start_train_pool.bat`: 60k부터 이어 학습하고 5k마다 저장합니다. 정규화 값은 60k 것을 유지합니다.
-5. `start_eval_protocol.bat`: 65k로 빨간 상자만 20회, 3개 배치 6가지 각 20회를 평가합니다. 시도가 끝나면 Y 성공, N 실패, R 버리고 다시를 누릅니다. 다시 실행하면 이어지고, 결과는 `logs/eval/redbox_pool_v2_065000/protocol_results.csv`에 남습니다.
+5. `start_eval_protocol.bat`: 65k로 빨간 상자만 20회, 3개 배치 6가지 각 20회를 평가합니다. 안전 한계는 두 시연 묶음을 합쳐서 잽니다. 시도가 끝나면 Y 성공, N 실패, R 버리고 다시를 누릅니다. 다시 실행하면 이어지고, 결과는 `logs/eval/redbox_pool_v2_065000/protocol_results.csv`에 남습니다.
 
 `start_eval_nowrist.bat`은 손목 카메라가 없을 때의 임시 시험입니다. 손목 영상 대신 학습 데이터의 평균 색 화면을 넣고, 결과는 `_nowrist` 폴더에 따로 남깁니다. 잡기 성능의 근거로 쓰지 않습니다.
 

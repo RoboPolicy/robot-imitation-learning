@@ -1,0 +1,270 @@
+[READY] 토크 꺼짐. 상자와 팔을 준비한 뒤 Enter를 누르세요. 시간 제한은 없습니다.
+[POSITION] episode_0000, 빨간 상자 위치 x410 y165 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0000의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 198프레임, 6.57초, 30.0 FPS, 최대 간격 83.2ms, 지연 샘플 0
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/298 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 298/298 [00:00<00:00, 5565.12 examples/s]
+[RESULT] saved: 298프레임, 9.9초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0000 저장 확인 (1/30)
+[POSITION] episode_0001, 빨간 상자 위치 x455 y90 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0001 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0001의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 244프레임, 8.1초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0001 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/285 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 285/285 [00:00<00:00, 5642.99 examples/s]
+[RESULT] saved: 285프레임, 9.47초, 29.99 FPS, 최대 간격 33.6ms, 지연 샘플 0
+[SAVED] episode_0001 저장 확인 (2/30)
+[POSITION] episode_0002, 빨간 상자 위치 x455 y390 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0002 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0002의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 174프레임, 5.77초, 29.99 FPS, 최대 간격 34.2ms, 지연 샘플 0
+[REC] episode_0002 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/275 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 275/275 [00:00<00:00, 5850.92 examples/s]
+[RESULT] saved: 275프레임, 9.14초, 29.99 FPS, 최대 간격 34.3ms, 지연 샘플 0
+[SAVED] episode_0002 저장 확인 (3/30)
+[POSITION] episode_0003, 빨간 상자 위치 x455 y315 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0003 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0003의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 307프레임, 10.2초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[REC] episode_0003 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/276 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 276/276 [00:00<00:00, 5872.68 examples/s]
+[RESULT] saved: 276프레임, 9.17초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0003 저장 확인 (4/30)
+[POSITION] episode_0004, 빨간 상자 위치 x410 y240 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0004 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0004의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 154프레임, 5.1초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0004 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0004의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 198프레임, 6.57초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[REC] episode_0004 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0004의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 44프레임, 1.43초, 30.0 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0004 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/255 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 255/255 [00:00<00:00, 5601.75 examples/s]
+[RESULT] saved: 255프레임, 8.47초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0004 저장 확인 (5/30)
+[POSITION] episode_0005, 빨간 상자 위치 x410 y90 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0005 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0005의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 158프레임, 5.23초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[REC] episode_0005 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0005의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 229프레임, 7.6초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[REC] episode_0005 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0005의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 189프레임, 6.27초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[REC] episode_0005 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0005의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 167프레임, 5.54초, 29.97 FPS, 최대 간격 34.4ms, 지연 샘플 0
+[REC] episode_0005 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/270 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 270/270 [00:00<00:00, 5602.53 examples/s]
+[RESULT] saved: 270프레임, 8.97초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[SAVED] episode_0005 저장 확인 (6/30)
+[POSITION] episode_0006, 빨간 상자 위치 x410 y315 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0006 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0006의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 137프레임, 4.54초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[REC] episode_0006 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0006의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 148프레임, 4.9초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0006 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0006의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 171프레임, 5.67초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[REC] episode_0006 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/275 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 275/275 [00:00<00:00, 5850.27 examples/s]
+[RESULT] saved: 275프레임, 9.14초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0006 저장 확인 (7/30)
+[POSITION] episode_0007, 빨간 상자 위치 x505 y315 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0007 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0007의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 141프레임, 4.67초, 29.99 FPS, 최대 간격 33.6ms, 지연 샘플 0
+[REC] episode_0007 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/241 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 241/241 [00:00<00:00, 5746.93 examples/s]
+[RESULT] saved: 241프레임, 8.0초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[SAVED] episode_0007 저장 확인 (8/30)
+[POSITION] episode_0008, 빨간 상자 위치 x505 y390 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0008 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/249 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 249/249 [00:00<00:00, 5624.69 examples/s]
+[RESULT] saved: 249프레임, 8.27초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0008 저장 확인 (9/30)
+[POSITION] episode_0009, 빨간 상자 위치 x455 y240 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0009 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/237 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 237/237 [00:00<00:00, 5779.26 examples/s]
+[RESULT] saved: 237프레임, 7.87초, 29.99 FPS, 최대 간격 34.3ms, 지연 샘플 0
+[SAVED] episode_0009 저장 확인 (10/30)
+[POSITION] episode_0010, 빨간 상자 위치 x505 y90 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0010 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0010의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 250프레임, 8.3초, 29.99 FPS, 최대 간격 34.1ms, 지연 샘플 0
+[REC] episode_0010 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/257 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 257/257 [00:00<00:00, 4989.13 examples/s]
+[RESULT] saved: 257프레임, 8.54초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[SAVED] episode_0010 저장 확인 (11/30)
+[POSITION] episode_0011, 빨간 상자 위치 x505 y240 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0011 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/244 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 244/244 [00:00<00:00, 5673.63 examples/s]
+[RESULT] saved: 244프레임, 8.1초, 29.98 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0011 저장 확인 (12/30)
+[POSITION] episode_0012, 빨간 상자 위치 x505 y90 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0012 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/259 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 259/259 [00:00<00:00, 5755.09 examples/s]
+[RESULT] saved: 259프레임, 8.6초, 29.99 FPS, 최대 간격 34.5ms, 지연 샘플 0
+[SAVED] episode_0012 저장 확인 (13/30)
+[POSITION] episode_0013, 빨간 상자 위치 x410 y165 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0013 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/226 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 226/226 [00:00<00:00, 5191.82 examples/s]
+[RESULT] saved: 226프레임, 7.5초, 29.99 FPS, 최대 간격 34.3ms, 지연 샘플 0
+[SAVED] episode_0013 저장 확인 (14/30)
+[POSITION] episode_0014, 빨간 상자 위치 x455 y390 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0014 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/205 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 205/205 [00:00<00:00, 5463.21 examples/s]
+[RESULT] saved: 205프레임, 6.8초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0014 저장 확인 (15/30)
+[POSITION] episode_0015, 빨간 상자 위치 x410 y240 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0015 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/225 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 225/225 [00:00<00:00, 5072.96 examples/s]
+[RESULT] saved: 225프레임, 7.47초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0015 저장 확인 (16/30)
+[POSITION] episode_0016, 빨간 상자 위치 x505 y165 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0016 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/229 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 229/229 [00:00<00:00, 5576.50 examples/s]
+[RESULT] saved: 229프레임, 7.6초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0016 저장 확인 (17/30)
+[POSITION] episode_0017, 빨간 상자 위치 x410 y315 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0017 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/221 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 221/221 [00:00<00:00, 5526.42 examples/s]
+[RESULT] saved: 221프레임, 7.33초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0017 저장 확인 (18/30)
+[POSITION] episode_0018, 빨간 상자 위치 x455 y90 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0018 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/248 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 248/248 [00:00<00:00, 5009.26 examples/s]
+[RESULT] saved: 248프레임, 8.24초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0018 저장 확인 (19/30)
+[POSITION] episode_0019, 빨간 상자 위치 x505 y165 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0019 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[TIMEOUT] 15초를 넘겨 저장하지 않습니다. episode_0019의 시작 지점으로 돌아갑니다.
+[RESULT] timeout: 450프레임, 14.97초, 29.99 FPS, 최대 간격 34.3ms, 지연 샘플 0
+[REC] episode_0019 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/238 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 238/238 [00:00<00:00, 5534.36 examples/s]
+[RESULT] saved: 238프레임, 7.9초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0019 저장 확인 (20/30)
+[POSITION] episode_0020, 빨간 상자 위치 x410 y390 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0020 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0020의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 126프레임, 4.17초, 29.98 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[REC] episode_0020 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/254 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 254/254 [00:00<00:00, 5643.15 examples/s]
+[RESULT] saved: 254프레임, 8.44초, 29.99 FPS, 최대 간격 35.1ms, 지연 샘플 0
+[SAVED] episode_0020 저장 확인 (21/30)
+[POSITION] episode_0021, 빨간 상자 위치 x505 y390 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0021 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0021의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 139프레임, 4.6초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0021 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/247 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 247/247 [00:00<00:00, 5602.72 examples/s]
+[RESULT] saved: 247프레임, 8.2초, 29.99 FPS, 최대 간격 33.8ms, 지연 샘플 0
+[SAVED] episode_0021 저장 확인 (22/30)
+[POSITION] episode_0022, 빨간 상자 위치 x455 y240 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0022 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/243 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 243/243 [00:00<00:00, 5504.16 examples/s]
+[RESULT] saved: 243프레임, 8.07초, 30.0 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0022 저장 확인 (23/30)
+[POSITION] episode_0023, 빨간 상자 위치 x455 y315 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0023 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/243 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 243/243 [00:00<00:00, 5651.17 examples/s]
+[RESULT] saved: 243프레임, 8.07초, 29.99 FPS, 최대 간격 34.3ms, 지연 샘플 0
+[SAVED] episode_0023 저장 확인 (24/30)
+[POSITION] episode_0024, 빨간 상자 위치 x410 y390 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0024 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/223 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 223/223 [00:00<00:00, 5308.91 examples/s]
+[RESULT] saved: 223프레임, 7.4초, 29.99 FPS, 최대 간격 34.1ms, 지연 샘플 0
+[SAVED] episode_0024 저장 확인 (25/30)
+[POSITION] episode_0025, 빨간 상자 위치 x410 y90 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0025 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0025의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 213프레임, 7.07초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[REC] episode_0025 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/251 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 251/251 [00:00<00:00, 5513.01 examples/s]
+[RESULT] saved: 251프레임, 8.34초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[SAVED] episode_0025 저장 확인 (26/30)
+[POSITION] episode_0026, 빨간 상자 위치 x455 y165 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0026 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/240 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 240/240 [00:00<00:00, 5391.94 examples/s]
+[RESULT] saved: 240프레임, 7.97초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[SAVED] episode_0026 저장 확인 (27/30)
+[POSITION] episode_0027, 빨간 상자 위치 x505 y240 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0027 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0027의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 179프레임, 5.93초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0027 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/254 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 254/254 [00:00<00:00, 4965.66 examples/s]
+[RESULT] saved: 254프레임, 8.44초, 29.99 FPS, 최대 간격 34.4ms, 지연 샘플 0
+[SAVED] episode_0027 저장 확인 (28/30)
+[POSITION] episode_0028, 빨간 상자 위치 x455 y165 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0028 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/258 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 258/258 [00:00<00:00, 5344.28 examples/s]
+[RESULT] saved: 258프레임, 8.57초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[SAVED] episode_0028 저장 확인 (29/30)
+[POSITION] episode_0029, 빨간 상자 위치 x505 y315 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0029 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/223 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 223/223 [00:00<00:00, 5309.28 examples/s]
+[RESULT] saved: 223프레임, 7.4초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0029 저장 확인 (30/30)
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[DONE] 목표를 모두 저장했습니다. 리더를 맞춘 뒤 Esc로 종료하세요.
+[WAIT] elbow_flex 차이가 61입니다. 리더를 맞춘 뒤 다시 Esc를 누르세요.
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[TORQUE OFF] 팔로워 토크를 껐습니다.
+[EXIT REASON] 정상 종료: finished
+[LOG] C:\Users\user\SOARM101_RedBox\logs\record_redbox_redonly_30fps_20261103_114226.log
+[END] 저장된 에피소드 30/30개: C:\Users\user\SOARM101_RedBox\datasets\lerobot\redbox_redonly_30fps

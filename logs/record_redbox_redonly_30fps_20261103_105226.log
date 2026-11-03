@@ -1,0 +1,104 @@
+[READY] 토크 꺼짐. 상자와 팔을 준비한 뒤 Enter를 누르세요. 시간 제한은 없습니다.
+[POSITION] episode_0000, 빨간 상자 위치 x410 y165 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0000의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 201프레임, 6.67초, 29.97 FPS, 최대 간격 86.4ms, 지연 샘플 0
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0000의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 98프레임, 3.23초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0000의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 133프레임, 4.4초, 29.99 FPS, 최대 간격 34.0ms, 지연 샘플 0
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0000의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 191프레임, 6.34초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0000의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 196프레임, 6.5초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0000 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/290 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 290/290 [00:00<00:00, 5856.84 examples/s]
+[RESULT] saved: 290프레임, 9.64초, 29.99 FPS, 최대 간격 34.3ms, 지연 샘플 0
+[SAVED] episode_0000 저장 확인 (1/30)
+[POSITION] episode_0001, 빨간 상자 위치 x455 y90 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0001 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/271 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 271/271 [00:00<00:00, 6196.88 examples/s]
+[RESULT] saved: 271프레임, 9.0초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[SAVED] episode_0001 저장 확인 (2/30)
+[POSITION] episode_0002, 빨간 상자 위치 x455 y390 V번. 시작 자세를 잡고 Enter.
+[REC] episode_0002 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0002의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 248프레임, 8.24초, 29.99 FPS, 최대 간격 33.7ms, 지연 샘플 0
+[REC] episode_0002 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0002의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 155프레임, 5.13초, 29.99 FPS, 최대 간격 34.1ms, 지연 샘플 0
+[REC] episode_0002 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[SAVING] 저장 중입니다.
+Map:   0%|                                                                              | 0/267 [00:00<?, ? examples/s]Map: 100%|██████████████████████████████████████████████████████████████████| 267/267 [00:00<00:00, 5503.93 examples/s]
+[RESULT] saved: 267프레임, 8.87초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[SAVED] episode_0002 저장 확인 (3/30)
+[POSITION] episode_0003, 빨간 상자 위치 x455 y315 H번. 시작 자세를 잡고 Enter.
+[REC] episode_0003 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0003의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 192프레임, 6.37초, 29.99 FPS, 최대 간격 33.9ms, 지연 샘플 0
+[REC] episode_0003 기록 시작. Space: 저장 / Esc: 버리고 처음으로
+[RETRY] 기록을 버렸습니다. episode_0003의 시작 지점으로 돌아갑니다.
+[RESULT] discarded: 164프레임, 5.44초, 29.98 FPS, 최대 간격 34.1ms, 지연 샘플 0
+[BACK] 준비로 돌아갑니다. 팔은 멈춰 있습니다.
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[POSITION] episode_0003, 빨간 상자 위치 x455 y315 H번. 시작 자세를 잡고 Enter.
+[BACK] 준비로 돌아갑니다. 팔은 멈춰 있습니다.
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[CONFIRM] 종료하려면 3초 안에 Esc를 한 번 더 누르세요.
+[FINISH] 리더로 팔을 내려놓고 Enter: 토크 끄기 / Esc: 준비로 돌아가기
+[EXIT REASON] 오류로 종료했습니다. 토크가 꺼지니 팔을 받쳐 주세요.
+Traceback (most recent call last):
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 865, in main
+    result = run_session(cfg, follower, leader, keys, status)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 546, in run_session
+    follow_until(follower, leader, keys, status, start_pose, ramp,
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 354, in follow_until
+    precise_sleep(max(0.0, period - (time.perf_counter() - loop)))
+  File "C:\Users\user\lerobot-env\Lib\site-packages\lerobot\utils\robot_utils.py", line 46, in precise_sleep
+    remaining = end_time - time.perf_counter()
+                           ^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+[LOG] C:\Users\user\SOARM101_RedBox\logs\record_redbox_redonly_30fps_20261103_105226.log
+Traceback (most recent call last):
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 865, in main
+    result = run_session(cfg, follower, leader, keys, status)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 546, in run_session
+    follow_until(follower, leader, keys, status, start_pose, ramp,
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 354, in follow_until
+    precise_sleep(max(0.0, period - (time.perf_counter() - loop)))
+  File "C:\Users\user\lerobot-env\Lib\site-packages\lerobot\utils\robot_utils.py", line 46, in precise_sleep
+    remaining = end_time - time.perf_counter()
+                           ^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 881, in <module>
+    main()
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 876, in main
+    shutdown(follower, leader)
+  File "C:\Users\user\SOARM101_RedBox\scripts\record_episode.py", line 653, in shutdown
+    camera.disconnect()
+  File "C:\Users\user\lerobot-env\Lib\site-packages\lerobot\cameras\opencv\camera_opencv.py", line 629, in disconnect
+    self._cleanup_resources()
+  File "C:\Users\user\lerobot-env\Lib\site-packages\lerobot\cameras\opencv\camera_opencv.py", line 530, in _cleanup_resources
+    videocapture.release()
+KeyboardInterrupt
