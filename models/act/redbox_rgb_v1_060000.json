@@ -1,0 +1,8 @@
+{
+  "run": "redbox_rgb_v1",
+  "step": 60000,
+  "local_path": "outputs/act/redbox_rgb_v1/checkpoints/060000",
+  "model_sha256": "60ae52e1ed546e3b50288fa6f50b296282b31aac2cedc9961fba789045c9fa8d",
+  "dataset": "redbox_5fps_split6 (50 demonstrations)",
+  "note": "Baseline before adding red-box-only data. The weights are 206 MB, over the GitHub file limit, so only this hash is in Git."
+}

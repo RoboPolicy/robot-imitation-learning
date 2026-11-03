@@ -7,6 +7,6 @@ if not exist "%PYTHON_EXE%" (
   pause
   exit /b 1
 )
-"%PYTHON_EXE%" ".\scripts\align_top_camera.py"
+"%PYTHON_EXE%" ".\scripts\align_top_camera.py" %*
 if errorlevel 1 echo [ERROR] Alignment tool failed. Close other camera apps and check the message above.
 pause

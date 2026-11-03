@@ -568,14 +568,14 @@ def run_session(cfg, follower, leader, keys, status):
         time.sleep(0.1)
 
 
-def build_robot():
+def build_robot(camera_map=CAMERAS):
     from lerobot.cameras.opencv import OpenCVCameraConfig
     from lerobot.cameras.opencv.configuration_opencv import Cv2Backends
     from lerobot.robots.so_follower import SO101Follower, SO101FollowerConfig
     from lerobot.teleoperators.so_leader import SO101Leader, SO101LeaderConfig
 
     cameras = {n: OpenCVCameraConfig(index_or_path=i, width=640, height=480, fps=DATASET_FPS, fourcc="MJPG",
-                                     backend=Cv2Backends.DSHOW) for n, i in CAMERAS.items()}
+                                     backend=Cv2Backends.DSHOW) for n, i in camera_map.items()}
     follower = SO101Follower(SO101FollowerConfig(port="COM10", id="my_so101", use_degrees=False, cameras=cameras))
     leader = SO101Leader(SO101LeaderConfig(port="COM3", id="my_so101_leader", use_degrees=False))
     return follower, leader

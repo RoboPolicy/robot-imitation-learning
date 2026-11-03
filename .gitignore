@@ -1,3 +1,5 @@
 __pycache__/
 datasets/lerobot/
 outputs/
+logs/train_*.log
+logs/eval/**/trial_*

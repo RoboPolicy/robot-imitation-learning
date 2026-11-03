@@ -1,4 +1,4 @@
-"""SO-ARM101 top 카메라 맞추기: 기준 에피소드 화면을 실시간 영상에 겹쳐 보여 주고 바구니 위치 차이를 표시합니다.
+"""SO-ARM101 카메라 맞추기 (top, belly): 기준 에피소드 화면을 실시간 영상에 겹쳐 보여 주고 바구니 위치 차이를 표시합니다.
 모터는 사용하지 않습니다. T 겹침 방식 전환, S 현재 화면을 기록하고 종료, Q/Esc 기록 없이 종료.
 """
 
@@ -26,8 +26,8 @@ TOLERANCE = 8.0
 MODES = ("edges", "blend", "reference", "live")
 
 
-def first_frame(index):
-    video = next((EPISODES / f"episode_{index:04d}" / "videos" / "observation.images.top_cam").rglob("*.mp4"))
+def first_frame(index, camera="top"):
+    video = next((EPISODES / f"episode_{index:04d}" / "videos" / f"observation.images.{camera}_cam").rglob("*.mp4"))
     with av.open(str(video)) as container:
         return next(container.decode(video=0)).to_ndarray(format="bgr24")
 
@@ -38,9 +38,9 @@ def basket_box(model, frame):
     return max(boxes)[1] if boxes else None
 
 
-def target_box(model, center, spread=2):
+def target_box(model, center, camera="top", spread=2):
     """기준 에피소드와 앞뒤 시연의 중간값으로 목표 위치를 정합니다."""
-    boxes = [basket_box(model, first_frame(i)) for i in range(center - spread, center + spread + 1)]
+    boxes = [basket_box(model, first_frame(i, camera)) for i in range(center - spread, center + spread + 1)]
     boxes = [b for b in boxes if b]
     if not boxes:
         raise RuntimeError("기준 에피소드에서 바구니를 찾지 못했습니다.")
@@ -71,15 +71,16 @@ def compose(live, reference, edges, mode, target, box, line, color):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--episode", type=int, default=25)
+    parser.add_argument("--camera", choices=("top", "belly"), default="top")
     parser.add_argument("--seconds", type=float, default=0.0, help="지정하면 그 시간 뒤 결과만 출력하고 종료합니다.")
     args = parser.parse_args()
     model = YOLO(str(MODEL))
-    reference = first_frame(args.episode)
-    target = target_box(model, args.episode)
+    reference = first_frame(args.episode, args.camera)
+    target = target_box(model, args.episode, args.camera)
     gray = cv2.cvtColor(reference, cv2.COLOR_BGR2GRAY)
     edges = cv2.Canny(cv2.GaussianBlur(gray, (5, 5), 0), 40, 120)
     print(f"[TARGET] episode_{args.episode:04d} 주변의 바구니 박스: {[round(v) for v in target]}", flush=True)
-    camera = Camera("top", CAMERAS["top"])
+    camera = Camera(args.camera, CAMERAS[args.camera])
     camera.start()
     time.sleep(1.0)
     mode, box, frame, diffs = 0, None, None, None
@@ -113,13 +114,13 @@ def main():
                 mode = (mode + 1) % len(MODES)
             if key in (ord("s"), ord("S")):
                 CONFIG.mkdir(parents=True, exist_ok=True)
-                cv2.imwrite(str(CONFIG / "top_camera_reference.jpg"), frame, [cv2.IMWRITE_JPEG_QUALITY, 95])
-                (CONFIG / "top_camera_reference.json").write_text(json.dumps({
+                cv2.imwrite(str(CONFIG / f"{args.camera}_camera_reference.jpg"), frame, [cv2.IMWRITE_JPEG_QUALITY, 95])
+                (CONFIG / f"{args.camera}_camera_reference.json").write_text(json.dumps({
                     "saved_at": datetime.now().isoformat(timespec="seconds"), "reference_episode": args.episode,
                     "target_basket_box": [round(v, 1) for v in target],
                     "basket_box": [round(v, 1) for v in box] if box else None,
                     "difference": [round(d, 1) for d in diffs] if diffs else None}, indent=2), encoding="utf-8")
-                print(f"[SAVED] {CONFIG / 'top_camera_reference.json'} 차이: {line}", flush=True)
+                print(f"[SAVED] {CONFIG / f'{args.camera}_camera_reference.json'} 차이: {line}", flush=True)
                 return
     finally:
         camera.stop()
