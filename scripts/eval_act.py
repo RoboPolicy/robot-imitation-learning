@@ -26,7 +26,7 @@ from lerobot.utils.robot_utils import precise_sleep
 from record_episode import (CONTROL_FPS, DATASET_ROOT, FINISH_CONFIRM_SECONDS, JOINTS, LOG_DIR, PROJECT_DIR,
                             TASK, VK_N, VK_R, VK_Y, CommGuard, FakeFollower, Keys, Preview, Status, build_robot,
                             connect_without_torque, enable_holding, esc_pressed, hold_here, positions, press_when,
-                            red_only_guide, shutdown)
+                            SLOTS, red_only_guide, red_top_guide, shutdown)
 from replay_episode import GREEN, MODEL, ORANGE, RED, SPEEDS, judge_top, move_to, sample_action, to_action
 
 POLICY_FPS = 5
@@ -46,7 +46,6 @@ TRAIN_DATASET = "redbox_5fps_split6"
 NO_WRIST_CAMERAS = {"top_cam": 0, "belly_cam": 1}  # 손목 카메라가 빠지면 belly가 1번으로 당겨집니다.
 RUNS_DIR = PROJECT_DIR / "outputs" / "act"
 CONFIG_DIR = PROJECT_DIR / "config"
-SLOTS = {"TOP": (450, 105), "MID": (455, 210), "BOT": (450, 345)}  # top 화면 좌표. 긴 변을 화면 세로로 놓습니다.
 PROTOCOL_CONDITIONS = [("red_only", None)] + [("-".join(p), dict(zip(SLOTS, p))) for p in permutations(("red", "black", "blue"))]
 PROTOCOL_TRIALS = 20
 PROTOCOL_FIELDS = ["time", "condition", "trial", "layout", "outcome", "reason", "seconds", "speed", "replan", "checkpoint", "trial_file"]
@@ -615,7 +614,10 @@ def self_test():
                                       protocol=Protocol(Path(tmp) / "speed.csv", per_condition=1), speed_index=2)
         assert speedy[0]["speed"] == 1.0, speedy
     grid = red_only_guide()
-    assert len(grid) == 30 and len(set(grid)) == 30
+    assert len(grid) == 30 and len({tuple(g) for g in grid}) == 30 and all(len(g) == 1 for g in grid)
+    top = red_top_guide()
+    assert len(top) == 10 and [b[3] for b in top[0]] == ["red", "black", "blue"]
+    assert all(abs(b[0][0] - SLOTS["TOP"][0]) <= 20 and abs(b[0][1] - SLOTS["TOP"][1]) <= 15 for b in top)
 
     # 카메라 번호 확인: 정상 순서는 통과하고, 바뀐 순서는 잡아야 합니다.
     plain = np.full((480, 640, 3), 200, dtype=np.uint8)

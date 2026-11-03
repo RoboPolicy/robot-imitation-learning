@@ -61,13 +61,29 @@ GUIDE_COLORS = {"red": (40, 40, 245), "black": (20, 20, 20), "blue": (230, 90, 3
 GUIDE_HIDDEN_STATES = ("COUNTDOWN", "RECORD", "RUN")
 RED_GRID_X = (410, 455, 505)
 RED_GRID_Y = (90, 165, 240, 315, 390)
+SLOTS = {"TOP": (450, 105), "MID": (455, 210), "BOT": (450, 345)}  # 평가 자리(top 화면 좌표). 긴 변을 화면 세로로 놓습니다.
+RED_TOP_SHIFTS = [(0, 0), (-20, 0), (20, 0), (0, -15), (0, 15), (-20, -15), (20, 15), (-20, 15), (20, -15), (0, 0)]
 
 
 def red_only_guide():
     """빨간 상자 전용 시연의 배치입니다. 위치 15곳 x 방향 2개를 섞어 시간에 따른 치우침을 줄입니다."""
-    items = [(x, y, orient, "red") for x in RED_GRID_X for y in RED_GRID_Y for orient in "VH"]
+    items = [[(x, y, orient, "red")] for x in RED_GRID_X for y in RED_GRID_Y for orient in "VH"]
     random.Random(0).shuffle(items)
     return items
+
+
+def red_top_guide():
+    """빨강 위, 검정 가운데, 파랑 아래 배치입니다. 평가 자리를 그대로 외우지 않도록 빨강은 상하좌우로, 나머지는 조금 옮깁니다."""
+    items = []
+    for i, (dx, dy) in enumerate(RED_TOP_SHIFTS):
+        side = 10 if i % 2 else -10
+        items.append([(SLOTS["TOP"][0] + dx, SLOTS["TOP"][1] + dy, "V", "red"),
+                      (SLOTS["MID"][0] + side, SLOTS["MID"][1], "V", "black"),
+                      (SLOTS["BOT"][0] - side, SLOTS["BOT"][1], "V", "blue")])
+    return items
+
+
+GUIDES = {"red_only": red_only_guide, "red_top": red_top_guide}
 
 
 def draw_guide(frame, guide):
@@ -480,10 +496,11 @@ def run_session(cfg, follower, leader, keys, status):
         done = index is None and not pending
         guide = cfg.get("guide")
         if guide and index is not None:
-            item = guide[index % len(guide)]
-            status.guide = [item]
+            status.guide = guide[index % len(guide)]
+            item = next(box for box in status.guide if box[3] == "red")
             position = f"x{item[0]} y{item[1]} {item[2]}"
-            label = f"RED BOX {'LONG SIDE VERTICAL' if item[2] == 'V' else 'LONG SIDE HORIZONTAL'} (see top view)"
+            others = " + BLACK, BLUE" if len(status.guide) > 1 else ""
+            label = f"RED BOX {'LONG SIDE VERTICAL' if item[2] == 'V' else 'LONG SIDE HORIZONTAL'}{others} (see top view)"
         else:
             position = (index % RED_POSITIONS + 1) if index is not None else 0
             label = f"RED POSITION {position}/{RED_POSITIONS}"
@@ -841,7 +858,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", default="redbox_30fps")
     parser.add_argument("--target", type=int, default=50)
-    parser.add_argument("--guide", choices=("red_only",), default=None, help="top 화면에 놓을 위치를 표시합니다.")
+    parser.add_argument("--guide", choices=tuple(GUIDES), default=None, help="top 화면에 놓을 위치를 표시합니다.")
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--preflight-seconds", type=float, default=0.0,
                         help="토크를 켜지 않고 카메라와 자세만 확인한 뒤 종료합니다.")
@@ -852,7 +869,7 @@ def main():
     cfg = {"root": DATASET_ROOT / args.dataset, "name": args.dataset, "target": args.target,
            "start_max_error": START_MAX_ERROR, "countdown": COUNTDOWN_SECONDS, "max_seconds": MAX_EPISODE_SECONDS,
            "log": LOG_DIR / f"episodes_{args.dataset}.csv", "preflight_seconds": args.preflight_seconds,
-           "guide": red_only_guide() if args.guide == "red_only" else None}
+           "guide": GUIDES[args.guide]() if args.guide else None}
     log_file = start_console_log(args.dataset)
     follower, leader = build_robot()
     keys, status, preview = Keys(), Status(""), None
