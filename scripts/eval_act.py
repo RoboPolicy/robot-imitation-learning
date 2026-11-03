@@ -7,7 +7,9 @@
 from __future__ import annotations
 
 import argparse
+import csv
 from datetime import datetime
+from itertools import permutations
 import json
 from pathlib import Path
 import queue
@@ -21,10 +23,10 @@ import pyarrow.parquet as pq
 
 from lerobot.utils.robot_utils import precise_sleep
 
-from record_episode import (CAMERAS, CONTROL_FPS, DATASET_ROOT, FINISH_CONFIRM_SECONDS, JOINTS, LOG_DIR, PROJECT_DIR,
-                            TASK, CommGuard, FakeFollower, FakeLeader, Keys, Preview, Status, build_robot,
+from record_episode import (CONTROL_FPS, DATASET_ROOT, FINISH_CONFIRM_SECONDS, JOINTS, LOG_DIR, PROJECT_DIR,
+                            TASK, VK_N, VK_R, VK_Y, CommGuard, FakeFollower, Keys, Preview, Status, build_robot,
                             connect_without_torque, enable_holding, esc_pressed, hold_here, positions, press_when,
-                            shutdown)
+                            red_only_guide, shutdown)
 from replay_episode import GREEN, MODEL, ORANGE, RED, SPEEDS, judge_top, move_to, sample_action, to_action
 
 POLICY_FPS = 5
@@ -35,7 +37,7 @@ LAG_FACTOR, LAG_MARGIN = 1.5, 5.0
 MAX_STEP_SECONDS = 0.05
 GPU_MEMORY_FRACTION = 0.12  # 학습 중에도 돌릴 수 있도록 이 프로세스의 GPU 메모리를 제한합니다.
 HW_LOW, HW_HIGH = np.array([-100.0] * 5 + [0.0]), np.full(6, 100.0)
-TRIAL_FRAME_SECONDS = 0.2
+TRIAL_FRAME_SECONDS = 0.1
 TILE_SIZE = (320, 240)
 CAMERA_TOLERANCE = 8.0
 FINGER_RATIO = 0.3
@@ -44,6 +46,10 @@ TRAIN_DATASET = "redbox_5fps_split6"
 NO_WRIST_CAMERAS = {"top_cam": 0, "belly_cam": 1}  # 손목 카메라가 빠지면 belly가 1번으로 당겨집니다.
 RUNS_DIR = PROJECT_DIR / "outputs" / "act"
 CONFIG_DIR = PROJECT_DIR / "config"
+SLOTS = {"TOP": (450, 105), "MID": (455, 210), "BOT": (450, 345)}  # top 화면 좌표. 긴 변을 화면 세로로 놓습니다.
+PROTOCOL_CONDITIONS = [("red_only", None)] + [("-".join(p), dict(zip(SLOTS, p))) for p in permutations(("red", "black", "blue"))]
+PROTOCOL_TRIALS = 20
+PROTOCOL_FIELDS = ["time", "condition", "trial", "layout", "outcome", "reason", "seconds", "speed", "replan", "checkpoint", "trial_file"]
 
 
 def demo_limits(dataset):
@@ -221,6 +227,70 @@ def view_mismatches(live, shape):
             problems.append(f"{name}: 바구니 가로세로 비 {value:.2f}")
     return problems
 
+class Protocol:
+    """조건별 반복 평가의 진행과 결과를 CSV에 남깁니다. 다시 실행하면 이어서 진행합니다."""
+
+    def __init__(self, path, per_condition=PROTOCOL_TRIALS):
+        self.path, self.per_condition = Path(path), per_condition
+        self.rows = []
+        if self.path.exists():
+            with self.path.open(encoding="utf-8", newline="") as f:
+                self.rows = list(csv.DictReader(f))
+
+    def done(self, condition):
+        return sum(r["condition"] == condition and r["outcome"] != "discard" for r in self.rows)
+
+    def current(self):
+        """다음 시도의 조건, 번호, 배치를 돌려줍니다. 모두 끝났으면 None입니다."""
+        for name, layout in PROTOCOL_CONDITIONS:
+            done = self.done(name)
+            if done < self.per_condition:
+                # 빨간 상자만 있을 때는 세 자리를 돌아가며 놓습니다.
+                return {"condition": name, "trial": done + 1,
+                        "layout": layout or {list(SLOTS)[done % len(SLOTS)]: "red"}}
+        return None
+
+    def guide(self, item):
+        return [(*SLOTS[slot], "V", color) for slot, color in item["layout"].items()]
+
+    def record(self, item, outcome, summary, stem):
+        row = {"time": summary["time"], "condition": item["condition"], "trial": item["trial"],
+               "layout": " ".join(f"{slot}={color}" for slot, color in item["layout"].items()), "outcome": outcome,
+               "reason": summary["reason"], "seconds": summary["seconds"], "speed": summary["speed"],
+               "replan": summary["replan"], "checkpoint": summary["checkpoint"], "trial_file": stem}
+        new = not self.path.exists()
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        with self.path.open("a", encoding="utf-8", newline="") as f:
+            writer = csv.DictWriter(f, PROTOCOL_FIELDS)
+            if new:
+                writer.writeheader()
+            writer.writerow(row)
+        self.rows.append({k: str(v) for k, v in row.items()})
+
+    def totals(self):
+        parts = []
+        for name, _ in PROTOCOL_CONDITIONS:
+            done = self.done(name)
+            wins = sum(r["condition"] == name and r["outcome"] == "success" for r in self.rows)
+            parts.append(f"{name} {wins}/{done}")
+        return ", ".join(parts)
+
+
+def ask_verdict(keys, status):
+    """사람이 본 결과를 받습니다. 기록의 자동 판정은 참고용입니다."""
+    status.state = "VERDICT"
+    status.set("Box in basket?  Y success   N fail   R discard and redo", ORANGE)
+    keys.clear()
+    while True:
+        if keys.yes.is_set():
+            return "success"
+        if keys.no.is_set():
+            return "fail"
+        if keys.redo.is_set():
+            return "discard"
+        time.sleep(0.05)
+
+
 def read_snapshot(follower):
     now = positions(follower.bus)
     return {"state": np.array([now[f"{j}.pos"] for j in JOINTS], dtype=np.float32),
@@ -339,12 +409,17 @@ def save_trial(cfg, summary, trace, frames, model):
     print(f"[RESULT] {summary['reason']}, {summary['seconds']}초, 예측 {summary['plans']}회, 추론 {summary['latency_ms']}ms, "
           f"범위 제한 {summary['clipped_loops']}, 속도 제한 {summary['speed_limited_loops']}, YOLO {summary['yolo_top']}", flush=True)
     print(f"[LOG] {cfg['log_dir'] / stem}", flush=True)
+    return stem
 
 
 def run_session(cfg, follower, keys, status, model=None):
     start = cfg["limits"]["start"]
     check = CameraCheck(model, follower.cameras)
-    status.title = f"{cfg['name']}: place the boxes | ENTER move to start | ESC quit"
+    protocol = cfg.get("protocol")
+    item = protocol.current() if protocol else None
+    status.guide = protocol.guide(item) if item else None
+    prefix = f"{item['condition']} trial {item['trial']}: " if item else ""
+    status.title = f"{prefix}{cfg['name']}: place the boxes | ENTER move to start | ESC quit"
     status.state = "PLACE"
     keys.clear()
     while not keys.enter.is_set():
@@ -365,16 +440,21 @@ def run_session(cfg, follower, keys, status, model=None):
     while True:
         status.state = "READY" if at_start else "STOPPED"
         speed = SPEEDS[speed_index]
-        status.title = (f"{cfg['name']}  SPEED {speed:.0%} | SPACE change speed  ENTER "
-                        + ("run ACT" if at_start else "move to start") + "  ESC twice finish")
+        if protocol:
+            label = f"{item['condition']} trial {item['trial']}/{protocol.per_condition}" if item else "PROTOCOL DONE"
+            status.title = f"{label}  SPEED {speed:.0%} | ENTER " + ("run ACT" if at_start else "move to start") + "  ESC twice finish"
+        else:
+            status.title = (f"{cfg['name']}  SPEED {speed:.0%} | SPACE change speed  ENTER "
+                            + ("run ACT" if at_start else "move to start") + "  ESC twice finish")
         armed = time.monotonic() < finish_until
         status.set("Press ESC again: torque OFF, arm may drop" if armed else
                    (f"READY: set the boxes  {check.line()}" if at_start else "STOPPED: arm holding. ENTER returns to start"),
                    ORANGE if armed else GREEN)
         if keys.space.is_set():
             keys.space.clear()
-            speed_index = (speed_index + 1) % len(SPEEDS)
-            print(f"[SPEED] {SPEEDS[speed_index]:.0%}", flush=True)
+            if not protocol:  # 조건끼리 비교할 수 있게 평가 중에는 속도를 고정합니다.
+                speed_index = (speed_index + 1) % len(SPEEDS)
+                print(f"[SPEED] {SPEEDS[speed_index]:.0%}", flush=True)
         if esc_pressed(keys, esc_ignore):
             keys.esc.clear()
             if armed:
@@ -391,15 +471,23 @@ def run_session(cfg, follower, keys, status, model=None):
                 status.state = "MOVE"
                 print("[MOVE] 시작 자세로 돌아갑니다.", flush=True)
                 at_start = move_to(follower, start, keys, status, "MOVE to start")
+            elif protocol and item is None:
+                print(f"[PROTOCOL] 모두 끝났습니다. {protocol.totals()}", flush=True)
             else:
                 status.state = "RUN"
                 print(f"[RUN] {speed:.0%} 실행 시작. Space: 시도 끝 / Esc: 즉시 멈춤", flush=True)
                 summary, trace, frames = run_policy(cfg, speed, follower, keys, status)
                 CommGuard().run(hold_here, follower)
                 time.sleep(0.5)
-                save_trial(cfg, summary, trace, frames, model)
+                stem = save_trial(cfg, summary, trace, frames, model)
                 results.append(summary)
                 at_start = False
+                if protocol:
+                    outcome = ask_verdict(keys, status)
+                    protocol.record(item, outcome, summary, stem)
+                    print(f"[PROTOCOL] {item['condition']} {item['trial']}: {outcome} | {protocol.totals()}", flush=True)
+                    item = protocol.current()
+                    status.guide = protocol.guide(item) if item else None
             keys.clear()
             esc_ignore = time.monotonic() + 0.7
             finish_until = 0.0
@@ -491,6 +579,37 @@ def self_test():
                                   ("RUN", 2.5, "esc"), *finish, replan=replan)
             counts.append(results[0]["plans"])
         assert counts[0] <= 3 and counts[1] >= 2 * counts[0], counts
+    # 조건별 평가: 사람 판정을 남기고, R은 세지 않으며, 다시 실행하면 이어집니다.
+    from pynput.keyboard import KeyCode
+    keys = Keys()
+    keys.press(KeyCode.from_vk(VK_Y))
+    keys.press(KeyCode.from_vk(VK_N))
+    keys.press(KeyCode.from_vk(VK_R))
+    assert keys.yes.is_set() and keys.no.is_set() and keys.redo.is_set()
+    assert len(PROTOCOL_CONDITIONS) == 7 and len({name for name, _ in PROTOCOL_CONDITIONS}) == 7
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "results.csv"
+        protocol = Protocol(path, per_condition=2)
+        one_trial = (("READY", 0.1, "enter"), ("RUN", 0.3, "space"))
+        results, follower, _ = session(tmp, steady, ("PLACE", 0.1, "enter"),
+                                       *one_trial, ("VERDICT", 0.1, "yes"), ("STOPPED", 0.1, "enter"),
+                                       *one_trial, ("VERDICT", 0.1, "redo"), ("STOPPED", 0.1, "enter"),
+                                       *one_trial, ("VERDICT", 0.1, "no"), ("STOPPED", 0.1, "enter"),
+                                       *one_trial, ("VERDICT", 0.1, "yes"), *finish, protocol=protocol)
+        assert follower.bus.torque == 0 and len(results) == 4 and all(r["speed"] == 0.5 for r in results), results
+        again = Protocol(path, per_condition=2)
+        assert [r["outcome"] for r in again.rows] == ["success", "discard", "fail", "success"], again.rows
+        assert again.done("red_only") == 2 and again.done(PROTOCOL_CONDITIONS[1][0]) == 1
+        # 빨간 상자만 있을 때 번호에 따라 자리가 바뀝니다.
+        fresh = Protocol(Path(tmp) / "none.csv", per_condition=3)
+        assert fresh.current() == {"condition": "red_only", "trial": 1, "layout": {"TOP": "red"}}
+        assert again.current()["condition"] == PROTOCOL_CONDITIONS[1][0] and again.current()["trial"] == 2
+        assert len(again.current()["layout"]) == 3
+        assert again.guide(again.current())[0][2] == "V"
+        assert "red_only 1/2" in again.totals()
+    grid = red_only_guide()
+    assert len(grid) == 30 and len(set(grid)) == 30
+
     # 카메라 번호 확인: 정상 순서는 통과하고, 바뀐 순서는 잡아야 합니다.
     plain = np.full((480, 640, 3), 200, dtype=np.uint8)
     wide = plain.copy()
@@ -502,7 +621,7 @@ def self_test():
     assert not view_mismatches({"top_cam": plain, "belly_cam": wide}, shape)
     assert view_mismatches({"top_cam": wide, "wrist_cam": purple, "belly_cam": plain}, shape)
     assert view_mismatches({"top_cam": plain, "wrist_cam": wide, "belly_cam": purple}, shape)
-    print("[SELF-TEST] 범위/속도 제한, 즉시 멈춤, 지연 중단, 시간 제한, 모델 오류, 재예측 주기, 카메라 번호, 토크 해제 검사 통과. "
+    print("[SELF-TEST] 범위/속도 제한, 즉시 멈춤, 지연 중단, 시간 제한, 모델 오류, 재예측 주기, 조건별 평가, 카메라 번호, 토크 해제 검사 통과. "
           "모터는 사용하지 않았습니다.")
 
 
@@ -515,6 +634,7 @@ def main():
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--no-wrist", action="store_true", help="손목 영상 대신 평균 화면을 넣는 임시 시험입니다. 잡기 성능은 믿을 수 없습니다.")
     parser.add_argument("--dry-run", type=float, default=0.0, help="지정한 초 동안 추론만 합니다. 토크를 켜지 않습니다.")
+    parser.add_argument("--protocol", action="store_true", help="빨간 상자만 + 3개 배치 6가지를 조건별 20회 평가합니다.")
     parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
     if args.self_test:
@@ -525,6 +645,8 @@ def main():
     from ultralytics import YOLO
 
     checkpoint = RUNS_DIR / args.run / "checkpoints" / args.checkpoint if args.checkpoint else latest_checkpoint(args.run)
+    if not (checkpoint / "training_state").is_dir():
+        raise RuntimeError(f"아직 저장이 끝나지 않은 체크포인트입니다: {checkpoint}")
     limits = demo_limits(args.dataset)
     print(f"[CHECKPOINT] {checkpoint}", flush=True)
     print(f"[LIMITS] 시작 자세 {np.round(limits['start'], 1).tolist()}", flush=True)
@@ -553,6 +675,9 @@ def main():
         preview.start()
         cfg = {"limits": limits, "planner": planner, "replan": args.replan, "name": f"{args.run}_{checkpoint.name}{suffix}",
                "log_dir": LOG_DIR / "eval" / f"{args.run}_{checkpoint.name}{suffix}", "camera": follower.cameras["top_cam"]}
+        if args.protocol:
+            cfg["protocol"] = Protocol(cfg["log_dir"] / "protocol_results.csv")
+            print(f"[PROTOCOL] 지금까지: {cfg['protocol'].totals()}", flush=True)
         run_session(cfg, follower, keys, status, model)
     finally:
         keys.stop()

@@ -14,6 +14,7 @@ import faulthandler
 import json
 from pathlib import Path
 import queue
+import random
 import shutil
 import sys
 import tempfile
@@ -46,6 +47,7 @@ START_MAX_ERROR = 20.0
 TORQUE_MOVE_LIMIT = 3.0
 RED_POSITIONS = 5
 COMM_RETRIES = 3
+POSITION_READ_TRIES = 5
 COMM_MISS_LIMIT = 30
 ESC_GUARD_SECONDS = 0.7
 FINISH_CONFIRM_SECONDS = 3.0
@@ -54,6 +56,28 @@ WARN_GAP_MS = 100.0
 LOG_FIELDS = ["time", "status", "episode", "red_position", "frames", "seconds", "fps", "gap_p95_ms",
               "gap_max_ms", "late_samples", "control_over_budget"]
 GREEN, RED, YELLOW, ORANGE = (80, 230, 80), (60, 60, 255), (0, 255, 255), (0, 200, 255)
+VK_Y, VK_N, VK_R = 89, 78, 82
+GUIDE_COLORS = {"red": (40, 40, 245), "black": (20, 20, 20), "blue": (230, 90, 30)}
+GUIDE_HIDDEN_STATES = ("COUNTDOWN", "RECORD", "RUN")
+RED_GRID_X = (410, 455, 505)
+RED_GRID_Y = (90, 165, 240, 315, 390)
+
+
+def red_only_guide():
+    """빨간 상자 전용 시연의 배치입니다. 위치 15곳 x 방향 2개를 섞어 시간에 따른 치우침을 줄입니다."""
+    items = [(x, y, orient, "red") for x in RED_GRID_X for y in RED_GRID_Y for orient in "VH"]
+    random.Random(0).shuffle(items)
+    return items
+
+
+def draw_guide(frame, guide):
+    """top 화면에 놓을 위치를 그립니다. V는 긴 변이 화면 세로, H는 화면 가로입니다. 저장 데이터에는 들어가지 않습니다."""
+    for x, y, orient, color in guide:
+        long_half = int(28 + 0.07 * y)
+        short_half = int(long_half * 0.65)
+        half_w, half_h = (short_half, long_half) if orient == "V" else (long_half, short_half)
+        cv2.rectangle(frame, (x - half_w, y - half_h), (x + half_w, y + half_h), GUIDE_COLORS[color], 3)
+        cv2.rectangle(frame, (x - half_w - 2, y - half_h - 2), (x + half_w + 2, y + half_h + 2), (255, 255, 255), 1)
 
 
 class Keys:
@@ -61,26 +85,33 @@ class Keys:
 
     def __init__(self):
         self.enter, self.space, self.esc = threading.Event(), threading.Event(), threading.Event()
+        self.yes, self.no, self.redo = threading.Event(), threading.Event(), threading.Event()
         self.listener = None
+
+    def press(self, key):
+        from pynput import keyboard
+
+        if key == keyboard.Key.enter:
+            self.enter.set()
+        elif key == keyboard.Key.space:
+            self.space.set()
+        elif key == keyboard.Key.esc:
+            self.esc.set()
+        else:
+            # 한글 입력 상태에서도 받도록 글자 대신 키 코드로 봅니다.
+            event = {VK_Y: self.yes, VK_N: self.no, VK_R: self.redo}.get(getattr(key, "vk", None))
+            if event:
+                event.set()
 
     def start(self):
         from pynput import keyboard
 
-        def press(key):
-            if key == keyboard.Key.enter:
-                self.enter.set()
-            elif key == keyboard.Key.space:
-                self.space.set()
-            elif key == keyboard.Key.esc:
-                self.esc.set()
-
-        self.listener = keyboard.Listener(on_press=press)
+        self.listener = keyboard.Listener(on_press=self.press)
         self.listener.start()
 
     def clear(self):
-        self.enter.clear()
-        self.space.clear()
-        self.esc.clear()
+        for event in (self.enter, self.space, self.esc, self.yes, self.no, self.redo):
+            event.clear()
 
     def stop(self):
         if self.listener:
@@ -94,6 +125,7 @@ class Status:
         self.line = ""
         self.color = YELLOW
         self.state = ""
+        self.guide = None
 
     def set(self, line, color=YELLOW):
         with self.lock:
@@ -122,6 +154,8 @@ class Preview(threading.Thread):
                     frame = cv2.cvtColor(camera.read_latest(), cv2.COLOR_RGB2BGR)
                 except Exception:
                     frame = np.zeros((480, 640, 3), dtype=np.uint8)
+                if name == "top_cam" and self.status.guide and self.status.state not in GUIDE_HIDDEN_STATES:
+                    draw_guide(frame, self.status.guide)
                 tile = cv2.resize(frame, (480, 360))
                 cv2.putText(tile, name, (8, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.7, YELLOW, 2)
                 tiles.append(tile)
@@ -205,7 +239,14 @@ class CommGuard:
 
 
 def positions(arm_bus):
-    return {f"{j}.pos": float(v) for j, v in arm_bus.sync_read("Present_Position", num_retry=COMM_RETRIES).items()}
+    """일시적 통신 오류로 프로그램이 끝나 토크가 꺼지지 않도록 몇 번 더 읽습니다."""
+    for attempt in range(POSITION_READ_TRIES):
+        try:
+            return {f"{j}.pos": float(v) for j, v in arm_bus.sync_read("Present_Position", num_retry=COMM_RETRIES).items()}
+        except ConnectionError:
+            if attempt == POSITION_READ_TRIES - 1:
+                raise
+            time.sleep(0.02)
 
 
 def esc_pressed(keys, ignore_until):
@@ -437,10 +478,18 @@ def run_session(cfg, follower, leader, keys, status):
             pending = None
         index = next_episode(cfg["root"], cfg["target"])
         done = index is None and not pending
-        position = (index % RED_POSITIONS + 1) if index is not None else 0
+        guide = cfg.get("guide")
+        if guide and index is not None:
+            item = guide[index % len(guide)]
+            status.guide = [item]
+            position = f"x{item[0]} y{item[1]} {item[2]}"
+            label = f"RED BOX {'LONG SIDE VERTICAL' if item[2] == 'V' else 'LONG SIDE HORIZONTAL'} (see top view)"
+        else:
+            position = (index % RED_POSITIONS + 1) if index is not None else 0
+            label = f"RED POSITION {position}/{RED_POSITIONS}"
         count = len(saved_episodes(cfg["root"]))
         status.title = (f"{cfg['name']}  saved {count}/{cfg['target']}  "
-                        + (f"NEXT episode_{index:04d}  RED POSITION {position}/{RED_POSITIONS}" if index is not None else "ALL DONE")
+                        + (f"NEXT episode_{index:04d}  {label}" if index is not None else "ALL DONE")
                         + "  | ENTER next  ESC finish")
         leader_pose = guard.run(positions, leader.bus) or leader_pose
         follower_pose = guard.run(positions, follower.bus) or follower_pose
@@ -792,6 +841,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", default="redbox_30fps")
     parser.add_argument("--target", type=int, default=50)
+    parser.add_argument("--guide", choices=("red_only",), default=None, help="top 화면에 놓을 위치를 표시합니다.")
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--preflight-seconds", type=float, default=0.0,
                         help="토크를 켜지 않고 카메라와 자세만 확인한 뒤 종료합니다.")
@@ -801,7 +851,8 @@ def main():
         return
     cfg = {"root": DATASET_ROOT / args.dataset, "name": args.dataset, "target": args.target,
            "start_max_error": START_MAX_ERROR, "countdown": COUNTDOWN_SECONDS, "max_seconds": MAX_EPISODE_SECONDS,
-           "log": LOG_DIR / f"episodes_{args.dataset}.csv", "preflight_seconds": args.preflight_seconds}
+           "log": LOG_DIR / f"episodes_{args.dataset}.csv", "preflight_seconds": args.preflight_seconds,
+           "guide": red_only_guide() if args.guide == "red_only" else None}
     log_file = start_console_log(args.dataset)
     follower, leader = build_robot()
     keys, status, preview = Keys(), Status(""), None

@@ -94,6 +94,14 @@ cd "$env:USERPROFILE\SOARM101_RedBox"
 
 모델 명령은 시연의 관절 범위(여유 3)와 최대 속도 안으로 제한합니다. 관절 지연이 시연 최대값의 1.5배 + 5를 넘거나 추론이 실패하면 멈춥니다. 시작할 때 화면 내용(손목의 그리퍼, top과 belly의 바구니 모양)으로 카메라 번호를 확인해, 바뀌었으면 토크를 켜지 않고 중단합니다.
 
+빨간 상자 전용 데이터로 이어 학습하는 순서는 다음과 같습니다. 60k 기준점은 태그 `act-rgb-v1-60k`와 `models/act/redbox_rgb_v1_060000.json`에 남아 있습니다.
+
+1. `start_record_redonly.bat`: 빨간 상자만 놓고 30개를 찍습니다. top 화면의 사각형이 놓을 위치와 방향입니다.
+2. `scripts/split_episodes.py --source redbox_redonly_30fps --output redbox_redonly_5fps_split6`: 6개로 나눕니다.
+3. `scripts/merge_datasets.py`: 기존 분할본과 합쳐 `redbox_pool_v2`를 만듭니다.
+4. `start_train_pool.bat`: 60k부터 이어 학습하고 5k마다 저장합니다. 정규화 값은 60k 것을 유지합니다.
+5. `start_eval_protocol.bat`: 65k로 빨간 상자만 20회, 3개 배치 6가지 각 20회를 평가합니다. 시도가 끝나면 Y 성공, N 실패, R 버리고 다시를 누릅니다. 다시 실행하면 이어지고, 결과는 `logs/eval/redbox_pool_v2_065000/protocol_results.csv`에 남습니다.
+
 `start_eval_nowrist.bat`은 손목 카메라가 없을 때의 임시 시험입니다. 손목 영상 대신 학습 데이터의 평균 색 화면을 넣고, 결과는 `_nowrist` 폴더에 따로 남깁니다. 잡기 성능의 근거로 쓰지 않습니다.
 
 시도별 요약, 궤적, 3대 영상, 마지막 top 화면은 `logs/eval/`에 남습니다. 키는 창을 클릭하지 않아도 입력됩니다. 모터 없이 규칙을 시험하려면 `--self-test`, 토크 없이 실제 카메라로 추론만 하려면 `--dry-run 8`을 씁니다.
