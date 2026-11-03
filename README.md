@@ -100,7 +100,33 @@ cd "$env:USERPROFILE\SOARM101_RedBox"
 2. `scripts/split_episodes.py --source redbox_redonly_30fps --output redbox_redonly_5fps_split6`: 6개로 나눕니다.
 3. `scripts/merge_datasets.py`: 기존 분할본과 합쳐 `redbox_pool_v2`를 만듭니다.
 4. `start_train_pool.bat`: 60k부터 이어 학습하고 5k마다 저장합니다. 정규화 값은 60k 것을 유지합니다.
-5. `start_eval_protocol.bat`: 65k로 빨간 상자만 20회, 3개 배치 6가지 각 20회를 평가합니다. 안전 한계는 두 시연 묶음을 합쳐서 잽니다. 시도가 끝나면 Y 성공, N 실패, R 버리고 다시를 누릅니다. 다시 실행하면 이어지고, 결과는 `logs/eval/redbox_pool_v2_065000/protocol_results.csv`에 남습니다.
+5. `start_eval_protocol.bat`: 체크포인트(처음에는 65k)로 빨간 상자만 20회, 3개 배치 6가지 각 20회를 평가합니다. 안전 한계는 두 시연 묶음을 합쳐서 잽니다. 시도가 끝나면 Y 성공, N 실패, R 버리고 다시를 누릅니다. 다시 실행하면 이어지고, 결과는 `logs/eval/redbox_pool_v2_065000/protocol_results.csv`에 남습니다.
+
+약한 배치(빨강 위, 검정 가운데, 파랑 아래)를 보강한 순서입니다.
+
+1. `start_record_redtop.bat`: 그 배치로 10개를 찍습니다. 빨강 자리는 평가 자리에서 상하좌우로 조금씩 바뀝니다.
+2. 6개로 나눈 뒤 `scripts/merge_datasets.py --sources redbox_5fps_split6 redbox_redonly_5fps_split6 redbox_redtop_5fps_split6 --output redbox_pool_v3`로 합칩니다.
+3. `start_train_pool_v3.bat`: `redbox_pool_v2` 100k부터 이어 학습합니다.
+
+평가 실행 파일은 학습 실행 이름(Enter = `redbox_pool_v3`)과 체크포인트 번호(`80000`처럼 앞의 0 없이도 됨)를 묻습니다.
+
+- `start_eval_quick.bat`: 7조건 x 5회. 체크포인트끼리 비교할 때 씁니다. 결과 폴더 끝에 `_quick5`가 붙습니다.
+- `start_eval_protocol.bat`: 7조건 x 20회 정식 평가입니다. 다시 실행하면 이어집니다.
+- `start_eval_redtop20.bat`, `start_eval_bot20.bat`: 빨강이 위인 배치, 빨강이 아래인 두 배치만 평가합니다.
+- `start_eval_test_speed100.bat`, `start_eval_test_replan1.bat`: 같은 모델로 실행 설정(100% 속도, 매 스텝 재예측)만 바꿔 봅니다.
+- `start_eval_free.bat`: 안내와 판정 없이 상자를 원하는 곳에 놓고 돌립니다.
+
+판정은 사람 손 없이 빨간 상자가 바구니에 들어가면 성공이며, 다시 잡아 넣어도 성공입니다. 첫 시도 성공 여부는 궤적의 그리퍼 열림 횟수로 따로 셉니다.
+
+| 체크포인트 | 빨간 상자만 | 3개 배치 6가지 | 비고 |
+|---|---|---|---|
+| `redbox_pool_v2` 65k | 6/20 | 43/120 | 위, 아래 자리에서 바깥으로 빗나감 |
+| `redbox_pool_v2` 100k | 18/20 | 112/120 (첫 시도 101) | 빨강-검정-파랑 15/20 |
+| `redbox_pool_v3` 110k | 4/5 | 빠른 평가 27/30 | 빨강-검정-파랑 20/20, 빨강 아래 7/10 |
+
+체크포인트별 가중치 해시와 결과는 `models/act/*.json`에 있습니다. 가중치는 GitHub 파일 크기 제한을 넘어서 Git에 넣지 않습니다.
+
+belly 카메라는 두 자세로 찍혔습니다. 처음 시연 50개와, 그 뒤의 빨간 상자 시연, 100k와 110k 평가입니다. 평가를 이어 할 때는 `start_align_belly_prefall.bat`(평가 영상 첫 화면 기준)으로 맞춥니다. `scripts/align_top_camera.py --reference-trial <trial.mp4>`로 다른 기록에도 맞출 수 있습니다.
 
 `start_eval_nowrist.bat`은 손목 카메라가 없을 때의 임시 시험입니다. 손목 영상 대신 학습 데이터의 평균 색 화면을 넣고, 결과는 `_nowrist` 폴더에 따로 남깁니다. 잡기 성능의 근거로 쓰지 않습니다.
 

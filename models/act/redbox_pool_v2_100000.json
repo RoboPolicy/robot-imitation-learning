@@ -1,0 +1,16 @@
+{
+  "run": "redbox_pool_v2",
+  "step": 100000,
+  "local_path": "outputs/act/redbox_pool_v2/checkpoints/100000",
+  "model_sha256": "a2ef09b3330cde0c01e24b4f152e0fb8babba6a4774cae8aafe156606dc7b2b4",
+  "resumed_from": "redbox_rgb_v1 step 60000",
+  "dataset": "redbox_pool_v2 = redbox_5fps_split6 + redbox_redonly_5fps_split6 (50 + 30 demonstrations, 480 split episodes)",
+  "evaluation": {
+    "results": "logs/eval/redbox_pool_v2_100000/protocol_results.csv",
+    "settings": "50% speed, replan 2, human verdict, re-grasps allowed",
+    "red_only": "18/20",
+    "three_boxes": "112/120 (first try 101/120)",
+    "weakest": "red-black-blue 15/20 (first try 7/20)"
+  },
+  "note": "Current model in use. The weights are over the GitHub file limit, so only this hash is in Git."
+}

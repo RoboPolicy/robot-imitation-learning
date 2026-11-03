@@ -1,0 +1,16 @@
+{
+  "run": "redbox_pool_v3",
+  "step": 110000,
+  "local_path": "outputs/act/redbox_pool_v3/checkpoints/110000",
+  "model_sha256": "49541514f9076987c3ea7b5a581d6c20630d66af5f1ea6c50ae5337601c6e8e8",
+  "resumed_from": "redbox_pool_v2 step 100000",
+  "dataset": "redbox_pool_v3 = redbox_pool_v2 sources + redbox_redtop_5fps_split6 (50 + 30 + 10 demonstrations, 540 split episodes)",
+  "evaluation": {
+    "results": "logs/eval/redbox_pool_v3_110000/protocol_results.csv",
+    "settings": "50% speed, replan 2, human verdict, re-grasps allowed",
+    "red_black_blue": "20/20 (first try 20/20)",
+    "quick_5_per_condition": "3-box 27/30",
+    "red_at_bottom": "7/10, below 100k (39/40); only 5 trials per layout so far"
+  },
+  "note": "Only 10k steps after adding the red-top demos. Training continues toward 200k to see if the bottom position recovers."
+}
