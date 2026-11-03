@@ -1,0 +1,11 @@
+{
+  "run": "redbox_pool_v3",
+  "step": 200000,
+  "local_path": "outputs/act/redbox_pool_v3/checkpoints/200000",
+  "model_sha256": "60a2a9d6f39098c9dde11d692ae6cebf159dddbc4894279c2a566445b30af241",
+  "resumed_from": "redbox_pool_v3 step 110000",
+  "dataset": "redbox_pool_v3 = redbox_5fps_split6 + redbox_redonly_5fps_split6 + redbox_redtop_5fps_split6 (50 + 30 + 10 demonstrations, 540 split episodes)",
+  "train_loss_at_200k": "0.042",
+  "evaluation": "not evaluated yet",
+  "note": "Trained on past 110k to see if the red-at-bottom layouts recover. The weights are over the GitHub file limit, so only this hash is in Git."
+}
