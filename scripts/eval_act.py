@@ -657,7 +657,12 @@ def main():
         parser.error("--replan은 1~10이어야 합니다.")
     from ultralytics import YOLO
 
+    if args.checkpoint and args.checkpoint.isdigit():
+        args.checkpoint = f"{int(args.checkpoint):06d}"  # 80000 -> 080000
     checkpoint = RUNS_DIR / args.run / "checkpoints" / args.checkpoint if args.checkpoint else latest_checkpoint(args.run)
+    if not checkpoint.is_dir():
+        saved = sorted(p.name for p in checkpoint.parent.glob("[0-9]*") if p.is_dir())
+        raise RuntimeError(f"체크포인트가 없습니다: {checkpoint.name}. 저장된 것: {', '.join(saved)}")
     if not (checkpoint / "training_state").is_dir():
         raise RuntimeError(f"아직 저장이 끝나지 않은 체크포인트입니다: {checkpoint}")
     limits = demo_limits(args.dataset)
