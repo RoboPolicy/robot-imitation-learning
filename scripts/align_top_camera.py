@@ -34,6 +34,14 @@ def first_frame(index, camera="top"):
         return next(container.decode(video=0)).to_ndarray(format="bgr24")
 
 
+def trial_frame(video, camera):
+    """평가 기록 영상(top, wrist, belly 순서로 320x240 3칸)의 첫 화면에서 한 카메라를 640x480으로 꺼냅니다."""
+    with av.open(str(video)) as container:
+        frame = next(container.decode(video=0)).to_ndarray(format="bgr24")
+    i = ("top", "wrist", "belly").index(camera)
+    return cv2.resize(frame[:, i * 320:(i + 1) * 320], (640, 480))
+
+
 def basket_box(model, frame):
     result = model.predict(frame, conf=0.5, imgsz=640, device=0, verbose=False)[0]
     boxes = [(float(b.conf), [float(v) for v in b.xyxy[0].tolist()]) for b in result.boxes if int(b.cls) == 1]
@@ -91,18 +99,27 @@ def main():
     parser.add_argument("--camera", choices=("top", "belly", "wrist"), default="top",
                         help="wrist는 바구니 대신 닫힌 그리퍼의 위치로 맞춥니다.")
     parser.add_argument("--seconds", type=float, default=0.0, help="지정하면 그 시간 뒤 결과만 출력하고 종료합니다.")
+    parser.add_argument("--reference-trial", type=Path, default=None,
+                        help="시연 대신 평가 기록 영상(trial_*.mp4)의 첫 화면을 기준으로 맞춥니다. 상자도 그때와 같게 놓습니다.")
     args = parser.parse_args()
     wrist = args.camera == "wrist"
     find, tolerance = (finger_box, WRIST_TOLERANCE) if wrist else (basket_box, TOLERANCE)
     model = None if wrist else YOLO(str(MODEL))
-    reference = first_frame(args.episode, args.camera)
-    target = target_box(model, args.episode, args.camera, find=find)
+    if args.reference_trial:
+        reference = trial_frame(args.reference_trial, args.camera)
+        target = find(model, reference)
+        if not target:
+            raise RuntimeError(f"기준 영상에서 목표를 찾지 못했습니다: {args.reference_trial}")
+    else:
+        reference = first_frame(args.episode, args.camera)
+        target = target_box(model, args.episode, args.camera, find=find)
     if wrist:
         edges = cv2.Canny(finger_mask(reference), 50, 150)
     else:
         gray = cv2.cvtColor(reference, cv2.COLOR_BGR2GRAY)
         edges = cv2.Canny(cv2.GaussianBlur(gray, (5, 5), 0), 40, 120)
-    print(f"[TARGET] episode_{args.episode:04d} 주변의 {'그리퍼' if wrist else '바구니'} 박스: {[round(v) for v in target]}", flush=True)
+    source = args.reference_trial.stem if args.reference_trial else f"episode_{args.episode:04d} 주변"
+    print(f"[TARGET] {source}의 {'그리퍼' if wrist else '바구니'} 박스: {[round(v) for v in target]}", flush=True)
     camera = Camera(args.camera, CAMERAS[args.camera])
     camera.start()
     time.sleep(1.0)
@@ -139,7 +156,9 @@ def main():
                 CONFIG.mkdir(parents=True, exist_ok=True)
                 cv2.imwrite(str(CONFIG / f"{args.camera}_camera_reference.jpg"), frame, [cv2.IMWRITE_JPEG_QUALITY, 95])
                 (CONFIG / f"{args.camera}_camera_reference.json").write_text(json.dumps({
-                    "saved_at": datetime.now().isoformat(timespec="seconds"), "reference_episode": args.episode,
+                    "saved_at": datetime.now().isoformat(timespec="seconds"),
+                    "reference_episode": None if args.reference_trial else args.episode,
+                    "reference_trial": str(args.reference_trial) if args.reference_trial else None,
                     "target_basket_box": [round(v, 1) for v in target],
                     "basket_box": [round(v, 1) for v in box] if box else None,
                     "difference": [round(d, 1) for d in diffs] if diffs else None}, indent=2), encoding="utf-8")
